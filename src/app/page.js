@@ -21,11 +21,11 @@ export default function Home() {
     setSelected(i);
 
     setTimeout(() => {
-      const value = Math.floor(Math.random() * 11) + 30; // 30–40
+      const value = Math.floor(Math.random() * 11) + 30; 
       setDiscount(value);
       setRevealed(true);
 
-      // 🎉 CONFETTI
+      // confetti
       const end = Date.now() + 5000;
       (function frame() {
         confetti({ particleCount: 3, angle: 60, spread: 70, origin: { x: 0 } });
@@ -41,7 +41,7 @@ export default function Home() {
       {/* NAVBAR */}
       <div className="flex justify-between items-center">
         <img src="/images.png" className="h-6" />
-        <p className="text-xs tracking-widest text-white/70">EASTER 2026</p>
+        <p className="text-xs tracking-widest text-white/70">Lotech easter discount 2026</p>
       </div>
 
       {/* HERO */}
@@ -173,7 +173,7 @@ export default function Home() {
                   Use this limited Easter discount to enroll in our IT program today.
                 </p>
 
-               <a href="/enroll">
+               <a href={`/enroll?d=${discount}`}>
   <button className="mt-5 px-6 py-3 bg-[#da2721] rounded-lg hover:scale-105 transition">
     Enroll Now
   </button>

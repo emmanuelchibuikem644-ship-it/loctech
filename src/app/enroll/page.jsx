@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
-
+import { useSearchParams } from 'next/navigation';
 export default function Enroll() {
+  const searchParams = useSearchParams();
+  let discountPrice = searchParams.get('d') || "0";
+  discountPrice = discountPrice > 40 ? 30 : discountPrice;
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -12,13 +15,19 @@ export default function Enroll() {
   });
 
   const courses = [
-    "Frontend Development",
-    "Backend Development",
-    "Fullstack Development",
+
     "UI/UX Design",
     "Data Analysis",
     "Cybersecurity",
-    "Cloud Computing",
+    "Cloud Computing Amazon Web Service",
+    "Cloud Computing Microsoft Azure",
+    "Full-Stack Web Development with Python and Django",
+    "Data Analysis With Excel",
+    "Data Analysis With Python and SQL",
+    "Machine Learning With Python",
+    "Data Analysis with Power BI",
+    "Graphics Design",
+    "Digital Marketing"
   ];
 
   const handleChange = (e) => {
@@ -30,6 +39,8 @@ export default function Enroll() {
     console.log(form);
 
     alert("Application submitted successfully!");
+
+  
   };
 
   return (
@@ -38,7 +49,7 @@ export default function Enroll() {
       <div className="w-full max-w-xl bg-white/5 backdrop-blur-lg p-8 rounded-xl border border-white/10">
 
         <h1 className="text-3xl font-bold text-center mb-6">
-           <img src="/images.png" className="h-6 mx-auto mb-4" />
+          <img src="/images.png" className="h-6 mx-auto mb-4" />
           Enroll in a Course <br />and Claim Your Easter Discount!
         </h1>
 
@@ -50,7 +61,7 @@ export default function Enroll() {
             name="name"
             placeholder="Full Name"
             onChange={handleChange}
-            required
+
             className="w-full p-3 rounded-lg bg-white/10 border border-white/20 outline-none"
           />
 
@@ -60,7 +71,7 @@ export default function Enroll() {
             name="phone"
             placeholder="Phone Number"
             onChange={handleChange}
-            required
+
             className="w-full p-3 rounded-lg bg-white/10 border border-white/20 outline-none"
           />
 
@@ -70,7 +81,7 @@ export default function Enroll() {
             name="email"
             placeholder="Email Address"
             onChange={handleChange}
-            required
+
             className="w-full p-3 rounded-lg bg-white/10 border border-white/20 outline-none"
           />
 
@@ -78,7 +89,7 @@ export default function Enroll() {
           <select
             name="mode"
             onChange={handleChange}
-            required
+
             className="w-full p-3 rounded-lg bg-white/10 border border-white/20 outline-none text-black"
           >
             <option value="">Mode of Learning</option>
@@ -90,7 +101,7 @@ export default function Enroll() {
           <select
             name="course"
             onChange={handleChange}
-            required
+
             className="w-full p-3 rounded-lg bg-white/10 border border-white/20 outline-none text-black"
           >
             <option value="">Select Course</option>
@@ -100,6 +111,7 @@ export default function Enroll() {
               </option>
             ))}
           </select>
+          <div className="bg-gray-100 p-2 text-black">Applied Discount: {discountPrice}%</div>
 
           {/* BUTTON */}
           <button
