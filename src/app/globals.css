@@ -26,24 +26,3 @@ body {
 }
 
 
-@keyframes borderFlow {
-  0% {
-    background: linear-gradient(0deg, #da2721, white, #1A0B61, #da2721);
-  }
-  25% {
-    background: linear-gradient(90deg, #da2721, white, #1A0B61, #da2721);
-  }
-  50% {
-    background: linear-gradient(180deg, #da2721, white, #1A0B61, #da2721);
-  }
-  75% {
-    background: linear-gradient(270deg, #da2721, white, #1A0B61, #da2721);
-  }
-  100% {
-    background: linear-gradient(360deg, #da2721, white, #1A0B61, #da2721);
-  }
-}
-
-.animate-borderFlow {
-  animation: borderFlow 3s linear infinite;
-}
