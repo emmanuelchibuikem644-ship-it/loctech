@@ -93,7 +93,7 @@ export default function Enroll() {
         </h1>
 
         <p className="text-center text-gray-600 mb-6 text-sm">
-          Claim your Easter discount before it expires 🚀
+          Claim your Easter discount before it expires
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -137,7 +137,7 @@ export default function Enroll() {
           >
             <option value="">Mode of Learning</option>
             <option value="online">Online</option>
-            <option value="physical">Physical</option>
+            <option value="physical">In-Person</option>
           </select>
 
           {/* COURSE */}
@@ -154,6 +154,8 @@ export default function Enroll() {
               </option>
             ))}
           </select>
+
+          <div className="bg-slate-500 py-2 px-3 text-black rounded-sm">Applied Discount: <span className="text-lg">{discountPrice}%</span></div>
 
           {/* BUTTON */}
           <button
