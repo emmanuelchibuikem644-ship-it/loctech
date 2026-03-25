@@ -11,7 +11,7 @@ export default function Home() {
 
   const eggs = [
     { img: "/egg-gold.png", name: "OBSIDIAN", glow: "#da2721" },
-    { img: "/egg-purple.png", name: "NEBULA", glow: "#d9e716" },
+    { img: "/egg-purple.png",  name: "NEBULA", glow: "#d9e716" },
     { img: "/egg-cyan.png", name: "QUANTUM", glow: "#ffffff" },
   ];
 
@@ -36,17 +36,17 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#1A0B61] to-[#0a0d24] text-white px-6 py-6">
+    <main className="min-h-screen bg-gray-100 text-black px-6 py-6">
 
       {/* NAVBAR */}
       <div className="flex justify-between items-center">
-        <img src="/images.png" className="h-6" />
-        <p className="text-xs tracking-widest text-white/70">EASTER 2026</p>
+        <img src="/images-removebg-preview.png" className="h-6" />
+        <p className="text-xs tracking-widest text-black">EASTER 2026</p>
       </div>
 
       {/* HERO */}
       <div className="text-center mt-20">
-        <div className="inline-block px-4 py-1 text-xs border border-white/20 rounded-full text-white/80 mb-6">
+        <div className="inline-block px-4 py-1 text-xs border border-black/20 rounded-full text-black/80 mb-6">
           LIMITED TIME OFFER
         </div>
 
@@ -55,13 +55,13 @@ export default function Home() {
           Easter <span className="text-[#da2721]">Surprise</span>
         </h1>
 
-        <p className="text-white/70 mt-4 max-w-md mx-auto">
+        <p className="text-black/70 mt-4 max-w-md mx-auto">
           Pick one egg and get an exclusive discount on our IT courses.
         </p>
       </div>
 
       {/* EGGS */}
-      <div className="flex justify-center gap-12 mt-16">
+      <div className="flex justify-center gap-12 mt-16 text-black">
 
         <AnimatePresence>
           {!revealed &&
@@ -76,7 +76,7 @@ export default function Home() {
                   transition={{ duration: 3, repeat: Infinity }}
                   className="flex flex-col items-center gap-3 cursor-pointer"
                 >
-                  <div className="relative group">
+                  <div className="relative group ">
 
                     {/* HOVER GLOW */}
                     <div
@@ -88,7 +88,7 @@ export default function Home() {
                     {selected !== i && (
                       <motion.img
                         src={egg.img}
-                        className="w-28 relative z-10"
+                        className="w-28 relative z-10 "
                         whileHover={{ scale: 1.1 }}
                       />
                     )}
@@ -135,7 +135,7 @@ export default function Home() {
                   </div>
 
                   {selected === null && (
-                    <p className="text-xs text-white/60 tracking-widest">
+                    <p className="text-xs text-black/60 tracking-widest">
                       {egg.name}
                     </p>
                   )}
@@ -160,16 +160,16 @@ export default function Home() {
               <div className="absolute inset-0 animate-borderFlow rounded-xl"></div>
 
               {/* CARD */}
-              <div className="relative bg-[#0a0d24] rounded-xl px-8 py-6 text-center max-w-sm">
+              <div className="relative bg-gray-200 rounded-xl px-8 py-6 text-center max-w-sm">
                 <h2 className="text-3xl font-bold text-[#da2721]">
-                  Your number is {discount}%
+                  Your discount is {discount}%
                 </h2>
 
-                <p className="mt-3 text-white/80">
+                <p className="mt-3 text-black/80">
                   You got {discount}% OFF!
                 </p>
 
-                <p className="text-sm text-white/60 mt-2">
+                <p className="text-sm text-black/60 mt-2">
                   Use this limited Easter discount to enroll in our IT program today.
                 </p>
 
@@ -186,7 +186,7 @@ export default function Home() {
       </AnimatePresence>
 
       {/* FOOTER */}
-      <div className="text-center text-xs text-white/50 mt-20">
+      <div className="text-center text-xs text-black/50 mt-20">
         © 2026 Loctech. All rights reserved.
       </div>
 
