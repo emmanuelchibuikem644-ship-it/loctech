@@ -1,65 +1,195 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import confetti from "canvas-confetti";
 
 export default function Home() {
+  const [selected, setSelected] = useState(null);
+  const [revealed, setRevealed] = useState(false);
+  const [discount, setDiscount] = useState(null);
+
+  const eggs = [
+    { img: "/egg-gold.png", name: "OBSIDIAN", glow: "#da2721" },
+    { img: "/egg-purple.png", name: "NEBULA", glow: "#d9e716" },
+    { img: "/egg-cyan.png", name: "QUANTUM", glow: "#ffffff" },
+  ];
+
+  const handlePick = (i) => {
+    if (selected !== null) return;
+
+    setSelected(i);
+
+    setTimeout(() => {
+      const value = Math.floor(Math.random() * 11) + 30; // 30–40
+      setDiscount(value);
+      setRevealed(true);
+
+      // 🎉 CONFETTI
+      const end = Date.now() + 5000;
+      (function frame() {
+        confetti({ particleCount: 3, angle: 60, spread: 70, origin: { x: 0 } });
+        confetti({ particleCount: 3, angle: 120, spread: 70, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }, 1400);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen bg-gradient-to-b from-[#1A0B61] to-[#0a0d24] text-white px-6 py-6">
+
+      {/* NAVBAR */}
+      <div className="flex justify-between items-center">
+        <img src="/images.png" className="h-6" />
+        <p className="text-xs tracking-widest text-white/70">EASTER 2026</p>
+      </div>
+
+      {/* HERO */}
+      <div className="text-center mt-20">
+        <div className="inline-block px-4 py-1 text-xs border border-white/20 rounded-full text-white/80 mb-6">
+          LIMITED TIME OFFER
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+          Unlock Your <br />
+          Easter <span className="text-[#da2721]">Surprise</span>
+        </h1>
+
+        <p className="text-white/70 mt-4 max-w-md mx-auto">
+          Pick one egg and get an exclusive discount on our IT courses.
+        </p>
+      </div>
+
+      {/* EGGS */}
+      <div className="flex justify-center gap-12 mt-16">
+
+        <AnimatePresence>
+          {!revealed &&
+            eggs.map((egg, i) => {
+              if (selected !== null && selected !== i) return null;
+
+              return (
+                <motion.div
+                  key={i}
+                  onClick={() => handlePick(i)}
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                  className="flex flex-col items-center gap-3 cursor-pointer"
+                >
+                  <div className="relative group">
+
+                    {/* HOVER GLOW */}
+                    <div
+                      className="absolute inset-0 rounded-full blur-2xl opacity-0 group-hover:opacity-60 transition duration-300"
+                      style={{ background: egg.glow }}
+                    />
+
+                    {/* NORMAL */}
+                    {selected !== i && (
+                      <motion.img
+                        src={egg.img}
+                        className="w-28 relative z-10"
+                        whileHover={{ scale: 1.1 }}
+                      />
+                    )}
+
+                    {/* CRACK */}
+                    {selected === i && (
+                      <motion.div
+                        className="relative w-28 h-36 z-10"
+                        animate={{ rotate: [0, -8, 8, -6, 6, 0] }}
+                        transition={{ duration: 0.4 }}
+                      >
+
+                        {/* LEFT */}
+                        <motion.div
+                          initial={{ x: 0, rotate: 0 }}
+                          animate={{ x: -60, rotate: -35 }}
+                          transition={{ duration: 0.9 }}
+                          className="absolute inset-0 overflow-hidden"
+                          style={{
+                            clipPath:
+                              "polygon(0 0, 50% 0, 40% 100%, 0% 100%)",
+                          }}
+                        >
+                          <img src={egg.img} className="w-full" />
+                        </motion.div>
+
+                        {/* RIGHT */}
+                        <motion.div
+                          initial={{ x: 0, rotate: 0 }}
+                          animate={{ x: 60, rotate: 35 }}
+                          transition={{ duration: 0.9 }}
+                          className="absolute inset-0 overflow-hidden"
+                          style={{
+                            clipPath:
+                              "polygon(50% 0, 100% 0, 100% 100%, 60% 100%)",
+                          }}
+                        >
+                          <img src={egg.img} className="w-full" />
+                        </motion.div>
+
+                      </motion.div>
+                    )}
+
+                  </div>
+
+                  {selected === null && (
+                    <p className="text-xs text-white/60 tracking-widest">
+                      {egg.name}
+                    </p>
+                  )}
+                </motion.div>
+              );
+            })}
+        </AnimatePresence>
+
+      </div>
+
+      {/* RESULT CARD */}
+      <AnimatePresence>
+        {revealed && (
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex justify-center mt-16"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            <div className="relative p-[2px] rounded-xl overflow-hidden">
+
+              {/* RUNNING BORDER */}
+              <div className="absolute inset-0 animate-borderFlow rounded-xl"></div>
+
+              {/* CARD */}
+              <div className="relative bg-[#0a0d24] rounded-xl px-8 py-6 text-center max-w-sm">
+                <h2 className="text-3xl font-bold text-[#da2721]">
+                  Your number is {discount}%
+                </h2>
+
+                <p className="mt-3 text-white/80">
+                  You got {discount}% OFF!
+                </p>
+
+                <p className="text-sm text-white/60 mt-2">
+                  Use this limited Easter discount to enroll in our IT program today.
+                </p>
+
+               <a href="/enroll">
+  <button className="mt-5 px-6 py-3 bg-[#da2721] rounded-lg hover:scale-105 transition">
+    Enroll Now
+  </button>
+</a>
+              </div>
+
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* FOOTER */}
+      <div className="text-center text-xs text-white/50 mt-20">
+        © 2026 Loctech. All rights reserved.
+      </div>
+
+    </main>
   );
 }
