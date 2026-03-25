@@ -10,9 +10,9 @@ export default function Home() {
   const [discount, setDiscount] = useState(null);
 
   const eggs = [
-    { img: "/egg-gold.png", name: "OBSIDIAN", glow: "#da2721" },
-    { img: "/egg-purple.png", name: "NEBULA", glow: "#d9e716" },
-    { img: "/egg-cyan.png", name: "QUANTUM", glow: "#ffffff" },
+    { img: "/egg-gold.png", name: "GET TRAINED", glow: "#da2721" },
+    { img: "/egg-purple.png", name: "GET CERTIFIED", glow: "#d9e716" },
+    { img: "/egg-cyan.png", name: "GET AHEAD", glow: "#ffffff" },
   ];
 
   const handlePick = (i) => {
