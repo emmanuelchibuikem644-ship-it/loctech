@@ -11,7 +11,7 @@ export default function Home() {
 
   const eggs = [
     { img: "/egg-gold.png", name: "OBSIDIAN", glow: "#da2721" },
-    { img: "/egg-purple.png",  name: "NEBULA", glow: "#d9e716" },
+    { img: "/egg-purple.png", name: "NEBULA", glow: "#d9e716" },
     { img: "/egg-cyan.png", name: "QUANTUM", glow: "#ffffff" },
   ];
 
@@ -21,11 +21,10 @@ export default function Home() {
     setSelected(i);
 
     setTimeout(() => {
-      const value = Math.floor(Math.random() * 11) + 30; // 30–40
+      const value = Math.floor(Math.random() * 11) + 30;
       setDiscount(value);
       setRevealed(true);
 
-      // 🎉 CONFETTI
       const end = Date.now() + 5000;
       (function frame() {
         confetti({ particleCount: 3, angle: 60, spread: 70, origin: { x: 0 } });
@@ -38,13 +37,11 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gray-100 text-black px-6 py-6">
 
-      {/* NAVBAR */}
       <div className="flex justify-between items-center">
         <img src="/images-removebg-preview.png" className="h-6" />
         <p className="text-xs tracking-widest text-black">EASTER 2026</p>
       </div>
 
-      {/* HERO */}
       <div className="text-center mt-20">
         <div className="inline-block px-4 py-1 text-xs border border-black/20 rounded-full text-black/80 mb-6">
           LIMITED TIME OFFER
@@ -76,59 +73,50 @@ export default function Home() {
                   transition={{ duration: 3, repeat: Infinity }}
                   className="flex flex-col items-center gap-3 cursor-pointer"
                 >
-                  <div className="relative group ">
+                  <div className="relative group">
 
-                    {/* HOVER GLOW */}
                     <div
                       className="absolute inset-0 rounded-full blur-2xl opacity-0 group-hover:opacity-60 transition duration-300"
                       style={{ background: egg.glow }}
                     />
 
-                    {/* NORMAL */}
                     {selected !== i && (
                       <motion.img
                         src={egg.img}
-                        className="w-28 relative z-10 "
+                        className="w-28 relative z-10"
                         whileHover={{ scale: 1.1 }}
                       />
                     )}
 
-                    {/* CRACK */}
                     {selected === i && (
                       <motion.div
                         className="relative w-28 h-36 z-10"
                         animate={{ rotate: [0, -8, 8, -6, 6, 0] }}
                         transition={{ duration: 0.4 }}
                       >
-
-                        {/* LEFT */}
                         <motion.div
                           initial={{ x: 0, rotate: 0 }}
                           animate={{ x: -60, rotate: -35 }}
                           transition={{ duration: 0.9 }}
                           className="absolute inset-0 overflow-hidden"
                           style={{
-                            clipPath:
-                              "polygon(0 0, 50% 0, 40% 100%, 0% 100%)",
+                            clipPath: "polygon(0 0, 50% 0, 40% 100%, 0% 100%)",
                           }}
                         >
                           <img src={egg.img} className="w-full" />
                         </motion.div>
 
-                        {/* RIGHT */}
                         <motion.div
                           initial={{ x: 0, rotate: 0 }}
                           animate={{ x: 60, rotate: 35 }}
                           transition={{ duration: 0.9 }}
                           className="absolute inset-0 overflow-hidden"
                           style={{
-                            clipPath:
-                              "polygon(50% 0, 100% 0, 100% 100%, 60% 100%)",
+                            clipPath: "polygon(50% 0, 100% 0, 100% 100%, 60% 100%)",
                           }}
                         >
                           <img src={egg.img} className="w-full" />
                         </motion.div>
-
                       </motion.div>
                     )}
 
@@ -146,7 +134,7 @@ export default function Home() {
 
       </div>
 
-      {/* RESULT CARD */}
+      {/* RESULT CARD (CLEAN) */}
       <AnimatePresence>
         {revealed && (
           <motion.div
@@ -154,13 +142,9 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             className="flex justify-center mt-16"
           >
-            <div className="relative p-[2px] rounded-xl overflow-hidden">
-
-              {/* RUNNING BORDER */}
-              <div className="absolute inset-0 animate-borderFlow rounded-xl"></div>
-
-              {/* CARD */}
+            <div className="rounded-xl">
               <div className="relative bg-gray-200 rounded-xl px-8 py-6 text-center max-w-sm">
+
                 <h2 className="text-3xl font-bold text-[#da2721]">
                   Your discount is {discount}%
                 </h2>
@@ -173,19 +157,18 @@ export default function Home() {
                   Use this limited Easter discount to enroll in our IT program today.
                 </p>
 
-               <a href="/enroll">
-  <button className="mt-5 px-6 py-3 bg-[#da2721] rounded-lg hover:scale-105 transition">
-    Enroll Now
-  </button>
-</a>
-              </div>
+                <a href="/enroll">
+                  <button className="mt-5 px-6 py-3 bg-[#da2721] rounded-lg hover:scale-105 transition">
+                    Enroll Now
+                  </button>
+                </a>
 
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* FOOTER */}
       <div className="text-center text-xs text-black/50 mt-20">
         © 2026 Loctech. All rights reserved.
       </div>

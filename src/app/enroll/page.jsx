@@ -70,13 +70,8 @@ export default function Enroll() {
 
       <div className="w-full max-w-xl bg-white p-8 rounded-2xl border border-gray-200 shadow-lg">
 
-        {/* LOGO */}
-        <img
-          src="/images-removebg-preview.png"
-          className="h-10 mx-auto mb-4"
-        />
+        <img src="/images-removebg-preview.png" className="h-10 mx-auto mb-4" />
 
-        {/* TITLE */}
         <h1 className="text-3xl font-bold text-center text-black mb-2">
           Enroll in a Course
         </h1>
@@ -94,13 +89,11 @@ export default function Enroll() {
               name="name"
               placeholder="Full Name"
               onChange={handleChange}
-              className={`w-full p-3 rounded-lg bg-white text-black border ${
-                errors.name ? "border-red-500" : "border-gray-300"
+              className={`w-full p-3 rounded-lg bg-white text-black border-2 ${
+                errors.name ? "border-red-500" : "border-gray-400"
               } outline-none focus:ring-2 focus:ring-[#da2721]`}
             />
-            {errors.name && (
-              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-            )}
+            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
           </div>
 
           {/* PHONE */}
@@ -110,13 +103,11 @@ export default function Enroll() {
               name="phone"
               placeholder="Phone Number"
               onChange={handleChange}
-              className={`w-full p-3 rounded-lg bg-white text-black border ${
-                errors.phone ? "border-red-500" : "border-gray-300"
+              className={`w-full p-3 rounded-lg bg-white text-black border-2 ${
+                errors.phone ? "border-red-500" : "border-gray-400"
               } outline-none focus:ring-2 focus:ring-[#da2721]`}
             />
-            {errors.phone && (
-              <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
-            )}
+            {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
           </div>
 
           {/* EMAIL */}
@@ -126,13 +117,11 @@ export default function Enroll() {
               name="email"
               placeholder="Email Address"
               onChange={handleChange}
-              className={`w-full p-3 rounded-lg bg-white text-black border ${
-                errors.email ? "border-red-500" : "border-gray-300"
+              className={`w-full p-3 rounded-lg bg-white text-black border-2 ${
+                errors.email ? "border-red-500" : "border-gray-400"
               } outline-none focus:ring-2 focus:ring-[#da2721]`}
             />
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-            )}
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
 
           {/* MODE */}
@@ -148,9 +137,7 @@ export default function Enroll() {
               <option value="online">Online</option>
               <option value="physical">Physical</option>
             </select>
-            {errors.mode && (
-              <p className="text-red-500 text-sm mt-1">{errors.mode}</p>
-            )}
+            {errors.mode && <p className="text-red-500 text-sm mt-1">{errors.mode}</p>}
           </div>
 
           {/* COURSE */}
@@ -164,20 +151,15 @@ export default function Enroll() {
             >
               <option value="">Select Course</option>
               {courses.map((c, i) => (
-                <option key={i} value={c}>
-                  {c}
-                </option>
+                <option key={i} value={c}>{c}</option>
               ))}
             </select>
-            {errors.course && (
-              <p className="text-red-500 text-sm mt-1">{errors.course}</p>
-            )}
+            {errors.course && <p className="text-red-500 text-sm mt-1">{errors.course}</p>}
           </div>
 
-          {/* BUTTON */}
           <button
             type="submit"
-            className="w-full py-3 bg-[#da2721] text-white rounded-lg font-semibold shadow-md hover:scale-105 transition duration-300"
+            className="w-full py-3 bg-[#da2721] text-white rounded-lg font-semibold shadow-md hover:scale-105 transition"
           >
             Submit Application
           </button>
