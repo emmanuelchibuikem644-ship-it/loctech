@@ -1,19 +1,24 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from 'next/navigation';
 
 export default function Enroll() {
   const searchParams = useSearchParams();
-  let discountPrice = searchParams.get('d') || "0";
-  discountPrice = discountPrice < 40 ? discountPrice : 30;
+  const [discountPrice, setDiscountPrice] = useState("0");
+
+  useEffect(() => {
+    let d = searchParams.get('d') || "0";
+    d = Number(d);
+    if (d >= 40) d = 30;
+    setDiscountPrice(d);
+  }, [searchParams]);
+
   const [form, setForm] = useState({
     username: "",
     phone: "",
     email: "",
     modeOfLearning: "",
     course: "",
-
   });
 
   const [errors, setErrors] = useState({});
@@ -71,44 +76,34 @@ export default function Enroll() {
       return;
     }
 
-    // send api
     try {
-
-      const res = await fetch('api/enroll', {
+      const res = await fetch('/api/enroll', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, discountPrice }),
-      })
+      });
 
-      console.log(res)
-      if(res.status==400){
-        setErrors("This email is existing already")
+      if(res.status === 400){
+        setErrors({ email: "This email is existing already" });
       }
-    }
-
-    catch (err) {
-      setErrors(err.message)
-      console.log("this is the error", err)
+    } catch (err) {
+      setErrors({ submit: err.message });
+      console.log("Error submitting form:", err);
     }
   };
 
   return (
     <main className="min-h-screen bg-white flex items-center justify-center px-6 py-10">
-
       <div className="w-full max-w-xl bg-white p-8 rounded-2xl border border-gray-200 shadow-lg">
-
         <img src="/images-removebg-preview.png" className="h-10 mx-auto mb-4" />
-
         <h1 className="text-3xl font-bold text-center text-black mb-2">
           Enroll in a Course
         </h1>
-
         <p className="text-center text-gray-600 mb-6 text-sm">
           Claim your Easter discount before it expires 
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-
           {/* NAME */}
           <div>
             <input
@@ -116,8 +111,7 @@ export default function Enroll() {
               name="username"
               placeholder="Full Name"
               onChange={handleChange}
-              className={`w-full p-3 rounded-lg bg-white text-black border-2 ${errors.name ? "border-red-500" : "border-gray-400"
-                } outline-none focus:ring-2 focus:ring-[#da2721]`}
+              className={`w-full p-3 rounded-lg bg-white text-black border-2 ${errors.name ? "border-red-500" : "border-gray-400"} outline-none focus:ring-2 focus:ring-[#da2721]`}
             />
             {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
           </div>
@@ -129,8 +123,7 @@ export default function Enroll() {
               name="phone"
               placeholder="Phone Number"
               onChange={handleChange}
-              className={`w-full p-3 rounded-lg bg-white text-black border-2 ${errors.phone ? "border-red-500" : "border-gray-400"
-                } outline-none focus:ring-2 focus:ring-[#da2721]`}
+              className={`w-full p-3 rounded-lg bg-white text-black border-2 ${errors.phone ? "border-red-500" : "border-gray-400"} outline-none focus:ring-2 focus:ring-[#da2721]`}
             />
             {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
           </div>
@@ -142,8 +135,7 @@ export default function Enroll() {
               name="email"
               placeholder="Email Address"
               onChange={handleChange}
-              className={`w-full p-3 rounded-lg bg-white text-black border-2 ${errors.email ? "border-red-500" : "border-gray-400"
-                } outline-none focus:ring-2 focus:ring-[#da2721]`}
+              className={`w-full p-3 rounded-lg bg-white text-black border-2 ${errors.email ? "border-red-500" : "border-gray-400"} outline-none focus:ring-2 focus:ring-[#da2721]`}
             />
             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
@@ -153,8 +145,7 @@ export default function Enroll() {
             <select
               name="modeOfLearning"
               onChange={handleChange}
-              className={`w-full p-3 rounded-lg bg-white text-black border ${errors.mode ? "border-red-500" : "border-gray-400"
-                } outline-none focus:ring-2 focus:ring-[#da2721]`}
+              className={`w-full p-3 rounded-lg bg-white text-black border ${errors.mode ? "border-red-500" : "border-gray-400"} outline-none focus:ring-2 focus:ring-[#da2721]`}
             >
               <option value="">Mode of Learning</option>
               <option value="online">Online</option>
@@ -168,8 +159,7 @@ export default function Enroll() {
             <select
               name="course"
               onChange={handleChange}
-              className={`w-full p-3 rounded-lg bg-white text-black border ${errors.course ? "border-red-500" : "border-gray-400"
-                } outline-none focus:ring-2 focus:ring-[#da2721]`}
+              className={`w-full p-3 rounded-lg bg-white text-black border ${errors.course ? "border-red-500" : "border-gray-400"} outline-none focus:ring-2 focus:ring-[#da2721]`}
             >
               <option value="">Select Course</option>
               {courses.map((c, i) => (
@@ -185,10 +175,8 @@ export default function Enroll() {
           >
             Submit Application
           </button>
-
         </form>
       </div>
-
     </main>
   );
 }
