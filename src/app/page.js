@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react"; 
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 
@@ -14,18 +14,39 @@ export default function Home() {
     { img: "/egg-cyan.png", name: "GET AHEAD", glow: "#ffffff" },
   ];
 
+  
+  useEffect(() => {
+    const saved = localStorage.getItem("loctech-easter");
+
+    if (saved) {
+      const data = JSON.parse(saved);
+      setSelected(data.selected);
+      setDiscount(data.discount);
+      setRevealed(true);
+    }
+  }, []);
+
   const handlePick = (i) => {
-    if (selected !== null) return;
+    
+    if (selected !== null || revealed) return;
 
     setSelected(i);
 
     setTimeout(() => {
       
-
       // confetti
       const value = Math.floor(Math.random() * 11) + 30;
       setDiscount(value);
       setRevealed(true);
+
+      // 
+      localStorage.setItem(
+        "loctech-easter",
+        JSON.stringify({
+          selected: i,
+          discount: value,
+        })
+      );
 
       const end = Date.now() + 5000;
       (function frame() {
@@ -61,6 +82,13 @@ export default function Home() {
 
       {/* EGGS */}
       <div className="flex justify-center gap-12 mt-16 text-black">
+
+        {/*  OPTIONAL MESSAGE */}
+        {revealed && (
+          <p className="absolute mt-[-40px] text-sm text-black/60">
+            You’ve already claimed your Easter reward 🎉
+          </p>
+        )}
 
         <AnimatePresence>
           {!revealed &&
@@ -136,7 +164,7 @@ export default function Home() {
 
       </div>
 
-      {/* RESULT CARD (CLEAN) */}
+      {/* RESULT CARD */}
       <AnimatePresence>
         {revealed && (
           <motion.div

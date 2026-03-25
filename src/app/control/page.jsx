@@ -4,15 +4,10 @@ import { useState } from "react";
 import { useSearchParams } from 'next/navigation';
 
 export default function Enroll() {
-  const searchParams = useSearchParams();
-  let discountPrice = searchParams.get('d') || "0";
-  discountPrice = discountPrice < 40 ? discountPrice : 30;
+  
   const [form, setForm] = useState({
-    username: "",
-    phone: "",
-    email: "",
-    modeOfLearning: "",
-    course: "",
+    email:"",
+    password: "",
 
   });
 
@@ -41,13 +36,10 @@ export default function Enroll() {
   const validate = () => {
     let newErrors = {};
 
-    if (!form.username.trim()) newErrors.name = "Full name is required";
+   
+    if(!form.password.trim()) newErrors.password="Password is required"
 
-    if (!form.phone.trim()) {
-      newErrors.phone = "Phone number is required";
-    } else if (!/^[0-9]{10,15}$/.test(form.phone)) {
-      newErrors.phone = "Enter a valid phone number";
-    }
+   
 
     if (!form.email.trim()) {
       newErrors.email = "Email is required";
@@ -55,8 +47,6 @@ export default function Enroll() {
       newErrors.email = "Enter a valid email";
     }
 
-    if (!form.modeOfLearning) newErrors.mode = "Select learning mode";
-    if (!form.course) newErrors.course = "Select a course";
 
     return newErrors;
   };
@@ -100,11 +90,11 @@ export default function Enroll() {
         <img src="/images-removebg-preview.png" className="h-10 mx-auto mb-4" />
 
         <h1 className="text-3xl font-bold text-center text-black mb-2">
-          Enroll in a Course
+            Loctech's Easter Discount Panel
         </h1>
 
         <p className="text-center text-gray-600 mb-6 text-sm">
-          Claim your Easter discount before it expires 
+         Login to see Leads
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -113,34 +103,8 @@ export default function Enroll() {
           <div>
             <input
               type="text"
-              name="username"
-              placeholder="Full Name"
-              onChange={handleChange}
-              className={`w-full p-3 rounded-lg bg-white text-black border-2 ${errors.name ? "border-red-500" : "border-gray-400"
-                } outline-none focus:ring-2 focus:ring-[#da2721]`}
-            />
-            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-          </div>
-
-          {/* PHONE */}
-          <div>
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Phone Number"
-              onChange={handleChange}
-              className={`w-full p-3 rounded-lg bg-white text-black border-2 ${errors.phone ? "border-red-500" : "border-gray-400"
-                } outline-none focus:ring-2 focus:ring-[#da2721]`}
-            />
-            {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
-          </div>
-
-          {/* EMAIL */}
-          <div>
-            <input
-              type="email"
               name="email"
-              placeholder="Email Address"
+              placeholder="Email"
               onChange={handleChange}
               className={`w-full p-3 rounded-lg bg-white text-black border-2 ${errors.email ? "border-red-500" : "border-gray-400"
                 } outline-none focus:ring-2 focus:ring-[#da2721]`}
@@ -148,36 +112,22 @@ export default function Enroll() {
             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
 
-          {/* MODE */}
+          {/* PHONE */}
           <div>
-            <select
-              name="modeOfLearning"
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
               onChange={handleChange}
-              className={`w-full p-3 rounded-lg bg-white text-black border ${errors.mode ? "border-red-500" : "border-gray-400"
+              className={`w-full p-3 rounded-lg bg-white text-black border-2 ${errors.password ? "border-red-500" : "border-gray-400"
                 } outline-none focus:ring-2 focus:ring-[#da2721]`}
-            >
-              <option value="">Mode of Learning</option>
-              <option value="online">Online</option>
-              <option value="inPerson">In Person</option>
-            </select>
-            {errors.mode && <p className="text-red-500 text-sm mt-1">{errors.mode}</p>}
+            />
+            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
           </div>
 
-          {/* COURSE */}
-          <div>
-            <select
-              name="course"
-              onChange={handleChange}
-              className={`w-full p-3 rounded-lg bg-white text-black border ${errors.course ? "border-red-500" : "border-gray-400"
-                } outline-none focus:ring-2 focus:ring-[#da2721]`}
-            >
-              <option value="">Select Course</option>
-              {courses.map((c, i) => (
-                <option key={i} value={c}>{c}</option>
-              ))}
-            </select>
-            {errors.course && <p className="text-red-500 text-sm mt-1">{errors.course}</p>}
-          </div>
+         
+         
+        
 
           <button
             type="submit"
