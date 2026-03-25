@@ -157,11 +157,11 @@ export default function Home() {
                 </p>
 
                 <p className="text-sm text-black/60 mt-2">
-                  Use this limited Easter discount to enroll in our IT program today.
+                  Use this limited Easter Discount to enroll in our IT program today.
                 </p>
 
                 <a href={`/enroll?d=${discount}`}>
-                  <button className="mt-5 px-6 py-3 bg-[#da2721] rounded-lg hover:scale-105 transition">
+                  <button className="mt-5 px-6 py-3 bg-[#da2721] rounded-lg hover:scale-105 transition text-white">
                     Enroll Now
                   </button>
                 </a>
